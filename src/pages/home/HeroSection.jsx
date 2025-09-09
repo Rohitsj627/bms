@@ -1,6 +1,6 @@
-// HeroSection.jsx
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Play, ArrowRight, Star, Users, Award } from 'lucide-react';
 
 const images = [
   "https://res.cloudinary.com/dsol90tiu/image/upload/v1748724705/image_5_ydnihy.jpg",
@@ -14,68 +14,127 @@ const HeroSection = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 4000);
+    }, 5000);
     return () => clearInterval(timer);
   }, []);
 
   return (
-    <div className="relative w-full aspect-[4/5.5] sm:aspect-[4/2.7] lg:aspect-[4/1.5] overflow-hidden">
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-black opacity-60 z-10"></div>
+    <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Carousel */}
+      <div className="absolute inset-0 z-0">
+        {images.map((img, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+              current === index ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            <img
+              src={img}
+              alt={`Hero slide ${index + 1}`}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30"></div>
+          </div>
+        ))}
+      </div>
 
-      {/* Text Content */}
-      <div className="absolute z-20 inset-0 flex flex-col items-center justify-center px-4 text-center text-white max-w-4xl mx-auto">
-        
-        <div className="text-orange-500 font-medium mb-3 flex items-center justify-center gap-2 text-sm sm:text-base md:text-lg">
-          <span>🚀</span>
-          <span>Empower Your Learning Journey Today</span>
-        </div>
+      {/* Content */}
+      <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <div className="max-w-4xl mx-auto">
+          {/* Badge */}
+          <div className="inline-flex items-center px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-8">
+            <Star className="w-4 h-4 text-yellow-400 mr-2" />
+            <span className="text-sm font-medium">Trusted by 50,000+ Students</span>
+          </div>
 
-        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">
-          Unlock Your Potential
-        </h1>
+          {/* Main Heading */}
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-6">
+            Transform Your
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-teal-400 to-blue-400">
+              Career Today
+            </span>
+          </h1>
 
-        <h2 className="text-2xl sm:text-3xl md:text-4xl mt-2 text-gray-300 font-semibold">
-          with Expert-Led Courses
-        </h2>
+          {/* Subheading */}
+          <p className="text-xl sm:text-2xl md:text-3xl text-gray-200 mb-8 font-light">
+            Master in-demand skills with expert-led courses and hands-on training
+          </p>
 
-        <p className="text-base sm:text-lg md:text-xl text-gray-200 mt-4 px-2 sm:px-8">
-          Hands-on training and certifications to help you get the most from Geeks Learning.
-        </p>
+          {/* Description */}
+          <p className="text-lg text-gray-300 mb-12 max-w-2xl mx-auto leading-relaxed">
+            Join BMS Academy and unlock your potential with comprehensive training programs 
+            designed by industry experts. Get certified, get hired, get ahead.
+          </p>
 
-        <ul className="mt-6 text-white flex flex-col sm:flex-row gap-2 sm:gap-6 text-sm sm:text-base items-center sm:justify-center">
-          <li>✅ Expert Instructors</li>
-          <li>✅ Flexible Learning</li>
-          <li>✅ Supportive Community</li>
-        </ul>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+            <Link
+              to="/courses"
+              className="group inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-600 to-teal-700 text-white font-semibold rounded-xl hover:from-teal-700 hover:to-teal-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+            >
+              Explore Courses
+              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+            
+            <Link
+              to="/about"
+              className="group inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-xl border border-white/20 hover:bg-white/20 transition-all duration-300"
+            >
+              <Play className="mr-2 w-5 h-5" />
+              Watch Demo
+            </Link>
+          </div>
 
-        <div className="mt-6 flex flex-col sm:flex-row gap-4">
-            <Link to="/contact">
-    <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 px-6 rounded text-sm sm:text-base cursor-pointer">
-      Contact Now
-    </button>
-  </Link>
-  
-  <Link to="/courses">
-    <button className="bg-white hover:bg-gray-200 text-gray-800 font-semibold py-2 px-6 rounded border text-sm sm:text-base cursor-pointer">
-      Explore Courses
-    </button>
-  </Link>
+          {/* Trust Indicators */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-2xl mx-auto">
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Users className="w-6 h-6 text-teal-400 mr-2" />
+                <span className="text-2xl font-bold">50K+</span>
+              </div>
+              <p className="text-gray-300">Students Trained</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Award className="w-6 h-6 text-yellow-400 mr-2" />
+                <span className="text-2xl font-bold">95%</span>
+              </div>
+              <p className="text-gray-300">Success Rate</p>
+            </div>
+            
+            <div className="text-center">
+              <div className="flex items-center justify-center mb-2">
+                <Star className="w-6 h-6 text-orange-400 mr-2" />
+                <span className="text-2xl font-bold">4.9/5</span>
+              </div>
+              <p className="text-gray-300">Student Rating</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Background Carousel */}
-      <div className="absolute inset-0 z-0 transition-all duration-1000">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={`slide-${index}`}
-            className={`w-full h-full object-cover absolute top-0 left-0 transition-opacity duration-1000 ease-in-out ${
-              current === index ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        ))}
+      {/* Carousel Indicators */}
+      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-30">
+        <div className="flex space-x-2">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrent(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                current === index ? 'bg-white' : 'bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* Scroll Indicator */}
+      <div className="absolute bottom-8 right-8 z-30 animate-bounce">
+        <div className="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+          <div className="w-1 h-3 bg-white/50 rounded-full mt-2"></div>
+        </div>
       </div>
     </div>
   );
